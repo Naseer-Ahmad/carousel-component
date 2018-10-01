@@ -19,7 +19,7 @@ export class CarouselItemElement {
           <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
         </li>
       </ul>
-    <div *ngIf="showControls" style="margin-top: 1em; text-align:center">
+    <div *ngIf="showControls">
 
       <a (click)="prev()" class="aro-prev"> <i class="glyphicon glyphicon-menu-left"></i></a>
       
