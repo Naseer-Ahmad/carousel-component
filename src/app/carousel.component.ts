@@ -45,11 +45,13 @@ export class CarouselItemElement {
       background:transparent;
     }
     .aro-prev{
+      cursor:pointer;
       position: absolute;
       margin-top: -347px; margin-left: 28px;background: transparent; border: none;
       color: white;
     }
     .aro-next{
+      cursor:pointer;
       position: absolute;
       margin-top: -347px;
       margin-left: 878px;background: transparent; border: none;
