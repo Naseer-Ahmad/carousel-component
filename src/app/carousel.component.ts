@@ -19,15 +19,14 @@ export class CarouselItemElement {
           <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
         </li>
       </ul>
+    <div *ngIf="showControls" style="margin-top: 1em; text-align:center">
+
       <a (click)="prev()" class="aro-prev"> <i class="glyphicon glyphicon-menu-left"></i></a>
       
       <a (click)="next()" class="aro-next"><i class="glyphicon glyphicon-menu-right"></i></a>
-
+</div>
     </section>
-    <div *ngIf="showControls" style="margin-top: 1em; text-align:center">
-      <button (click)="next()" class="btn btn-default">Next</button>
-      <button (click)="prev()" class="btn btn-default">Prev</button>
-    </div> 
+    
   `,
   styles: [`
     ul {
@@ -69,43 +68,43 @@ export class CarouselItemElement {
   `]
 })
 export class CarouselComponent implements AfterViewInit {
-  @ContentChildren(CarouselItemDirective) items : QueryList<CarouselItemDirective>;
-  @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements : QueryList<ElementRef>;
-  @ViewChild('carousel') private carousel : ElementRef;
+  @ContentChildren(CarouselItemDirective) items: QueryList<CarouselItemDirective>;
+  @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements: QueryList<ElementRef>;
+  @ViewChild('carousel') private carousel: ElementRef;
   @Input() timing = '250ms ease-in';
   @Input() showControls = true;
-  private player : AnimationPlayer;
-  private itemWidth : number;
+  private player: AnimationPlayer;
+  private itemWidth: number;
   private currentSlide = 0;
   carouselWrapperStyle = {}
 
   next() {
-    if( this.currentSlide + 1 === this.items.length ) return;
+    if (this.currentSlide + 1 === this.items.length) return;
     this.currentSlide = (this.currentSlide + 1) % this.items.length;
     const offset = this.currentSlide * this.itemWidth;
-    const myAnimation : AnimationFactory = this.buildAnimation(offset);
+    const myAnimation: AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
   }
 
-  private buildAnimation( offset ) {
+  private buildAnimation(offset) {
     return this.builder.build([
       animate(this.timing, style({ transform: `translateX(-${offset}px)` }))
     ]);
   }
 
   prev() {
-    if( this.currentSlide === 0 ) return;
+    if (this.currentSlide === 0) return;
 
     this.currentSlide = ((this.currentSlide - 1) + this.items.length) % this.items.length;
     const offset = this.currentSlide * this.itemWidth;
 
-    const myAnimation : AnimationFactory = this.buildAnimation(offset);
+    const myAnimation: AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
   }
 
-  constructor( private builder : AnimationBuilder ) {
+  constructor(private builder: AnimationBuilder) {
   }
 
   ngAfterViewInit() {
@@ -116,7 +115,7 @@ export class CarouselComponent implements AfterViewInit {
         width: `${this.itemWidth}px`
       }
     });
-    
+
   }
 
 }
