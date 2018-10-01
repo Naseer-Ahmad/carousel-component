@@ -13,16 +13,21 @@ export class CarouselItemElement {
   exportAs: 'carousel',
   template: `
     <section class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
+
       <ul class="carousel-inner" #carousel>
         <li *ngFor="let item of items;" class="carousel-item">
           <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
         </li>
       </ul>
+      <a (click)="prev()" class="aro-prev"> <i class="glyphicon glyphicon-menu-left"></i></a>
+      
+      <a (click)="next()" class="aro-next"><i class="glyphicon glyphicon-menu-right"></i></a>
+
     </section>
     <div *ngIf="showControls" style="margin-top: 1em; text-align:center">
       <button (click)="next()" class="btn btn-default">Next</button>
       <button (click)="prev()" class="btn btn-default">Prev</button>
-    </div>
+    </div> 
   `,
   styles: [`
     ul {
@@ -30,6 +35,25 @@ export class CarouselItemElement {
       margin: 0;
       padding: 0;
       width: 6000px;
+    }
+    a:active{
+      color:white;
+      background:transparent;
+    }
+    a:hover{
+      color:white;
+      background:transparent;
+    }
+    .aro-prev{
+      position: absolute;
+      margin-top: -347px; margin-left: 28px;background: transparent; border: none;
+      color: white;
+    }
+    .aro-next{
+      position: absolute;
+      margin-top: -347px;
+      margin-left: 878px;background: transparent; border: none;
+      color: white;
     }
 
     .carousel-wrapper {
